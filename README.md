@@ -3,6 +3,7 @@
 Groupe de travail composé des étudiants suivants : 
 - Ronan Bachelot
 - Kévin Layec
+
 Nous avons collaboré avec : 
 - Pierre Jadaud
 - Alexandre Fiandaca
@@ -46,7 +47,8 @@ Nous avons ainsi pu vérifier le bon fonctionnement de cette partie via l'applic
 ![Vérification_Bluetooth_Scanner2](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/blob/TP_MQTT_LoRa_Bluetooth/Parametre_device.png)
 On observe bien que la carte émet un signal Bluetooth (UUID et nom de l'appareil identique au code
 
-###MQTT_client_LoRa_Bluetooth
+### MQTT_client_LoRa_Bluetooth
 Ce code ne fonctionne pas.
 L'objectif était de ce connnecter au Bluetooth configuré par l'autre carte et d'y récupéré un message. 
 Dans notre cas, le message étant : "Hello World!"
+Nous n'avons pas eu le temps de le faire fonctionner correctement 
