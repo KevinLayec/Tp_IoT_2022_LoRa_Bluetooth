@@ -1,67 +1,72 @@
-#include <WiFi.h>
-#include <PubSubClient.h>
+#include <WiFi.h>           // inclure la bibliothèque WiFi pour établir une connexion Wi-Fi
+#include <PubSubClient.h>   // inclure la bibliothèque PubSubClient pour communiquer avec un serveur MQTT
 
-const char* ssid = "Pixel_5969";
-const char* password = "azerty1234";
-const char* mqtt_server = "test.mosquitto.org";
+const char* ssid = "Pixel_5969";                // nom du réseau Wi-Fi à se connecter
+const char* password = "azerty1234";            // mot de passe du réseau Wi-Fi
+const char* mqtt_server = "test.mosquitto.org"; // adresse IP du serveur MQTT
 
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClient espClient;          // créer un objet de type WiFiClient pour se connecter au réseau Wi-Fi
+PubSubClient client(espClient); // créer un objet de type PubSubClient pour communiquer avec le serveur MQTT
 
+// fonction pour se connecter au réseau Wi-Fi
 void setup_wifi() {
   delay(10);
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  WiFi.begin(ssid, password);   // se connecter au réseau Wi-Fi avec le nom et le mot de passe donnés
+  while (WiFi.status() != WL_CONNECTED) {  // attendre la connexion Wi-Fi
     delay(500);
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("WiFi connected");
+  Serial.println("WiFi connected");  // afficher un message lorsque la connexion Wi-Fi est établie
   Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());    // afficher l'adresse IP locale attribuée au ESP32
 }
 
+// fonction de configuration initiale
 void setup() {
-  Serial.begin(115200);
-  setup_wifi();
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(callback);
+  Serial.begin(115200);     // initialiser la communication série avec une vitesse de 115200 bauds
+  setup_wifi();             // se connecter au réseau Wi-Fi
+  client.setServer(mqtt_server, 1883);  // spécifier l'adresse IP et le port du serveur MQTT à utiliser
+  client.setCallback(callback);         // spécifier la fonction de rappel à appeler lorsqu'un message MQTT est reçu
 }
 
+// fonction pour se reconnecter au serveur MQTT en cas de perte de connexion
 void reconnect() {
-  while (!client.connected()) {
+  while (!client.connected()) {    // tant que le client n'est pas connecté au serveur MQTT
     Serial.print("Attempting MQTT connection...");
-    String clientId = "ESP32Client-";
+    String clientId = "ESP32Client-";   // créer un ID client unique pour le ESP32
     clientId += String(random(0xffff), HEX);
-    if (client.connect(clientId.c_str())) {
+    if (client.connect(clientId.c_str())) {  // tenter de se connecter au serveur MQTT avec l'ID client généré
       Serial.println("connected");
-      client.subscribe("srt/FJ");
+      client.subscribe("srt/FJ");   // s'abonner au sujet MQTT "srt/FJ"
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
+      Serial.println(" try again in 5 seconds");  // afficher un message en cas d'échec de la connexion au serveur MQTT
+      delay(5000);     // attendre 5 secondes avant de réessayer
     }
   }
 }
 
+// fonction de rappel appelée lorsqu'un message MQTT est reçu
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+    Serial.print((char)payload[i]);    // afficher le message MQTT reçu
   }
-  Serial.println();
+  Serial.println
+
 }
 
 void loop() {
-  if (!client.connected()) {
+  if (!client.connected()) {    // si le client n'est pas connecté au serveur MQTT
     Serial.println("Disconnect");
-    reconnect();
+    reconnect();     // tenter de se reconnecter
   }
-  client.loop();
+  client.loop();     // écouter les messages MQTT entrants et exécuter les fonctions de rappel associées si nécessaire
 }
