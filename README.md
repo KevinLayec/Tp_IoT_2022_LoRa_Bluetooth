@@ -20,3 +20,5 @@
 
 ### 3. Refaire la partie cliente pour répondre au bluetooth
 
+Retrouver l'ensemble des codes que nous avons réalisé dans la branche suivante : 
+- [TP_MQTT_LoRa_Bluetooth](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/tree/TP_MQTT_LoRa_Bluetooth)
