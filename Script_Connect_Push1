@@ -4,47 +4,47 @@
 #include <PubSubClient.h>
 
 // WiFi settings
-const char* ssid = "HUAWEI P30 Pro";
-const char* password = "bachelot";
+const char* ssid = "HUAWEI P30 Pro";  // Nom du réseau WiFi
+const char* password = "bachelot";   // Mot de passe du réseau WiFi
 
 // MQTT settings
-const char* mqtt_server = "test.mosquitto.org";
-const int mqtt_port = 1883;
-//const char* mqtt_username = "votre_nom_utilisateur_mqtt";
-//const char* mqtt_password = "votre_mot_de_passe_mqtt";
+const char* mqtt_server = "test.mosquitto.org";  // Adresse du serveur MQTT
+const int mqtt_port = 1883;                       // Port du serveur MQTT
+//const char* mqtt_username = "votre_nom_utilisateur_mqtt"; //Nom d'utilisateurs pour la connexion MQTT - Pas utilisé ici
+//const char* mqtt_password = "votre_mot_de_passe_mqtt"; //Mot de passe pour la connexion MQTT - Pas utilisé ici
 
 // WiFi client and MQTT client
-WiFiClient wifiClient;
-PubSubClient mqttClient(wifiClient);
+WiFiClient wifiClient;                   // Création d'un objet client WiFi
+PubSubClient mqttClient(wifiClient);     // Création d'un objet client MQTT avec le client WiFi
 
 void setup() {
   // Connect to WiFi
-  Serial.begin(9600);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  Serial.begin(9600);                   // Démarre la communication série
+  WiFi.begin(ssid, password);           // Connexion au réseau WiFi
+  while (WiFi.status() != WL_CONNECTED) {  // Attente de la connexion au réseau WiFi
     delay(1000);
-    Serial.println("Connecting to WiFi...");
+    Serial.println("Connecting to WiFi...");  // Affichage d'un message de connexion en cours
   }
-  Serial.println("Connected to WiFi");
+  Serial.println("Connected to WiFi");     // Affichage d'un message de connexion réussie
 
   // Connect to MQTT server
-  mqttClient.setServer(mqtt_server, mqtt_port);
+  mqttClient.setServer(mqtt_server, mqtt_port);  // Configuration du serveur MQTT
   //mqttClient.setCredentials(mqtt_username, mqtt_password);
-  while (!mqttClient.connected()) {
-    if (mqttClient.connect("arduino-client")) {
-      Serial.println("Connected to MQTT server");
+  while (!mqttClient.connected()) {            // Attente de la connexion au serveur MQTT
+    if (mqttClient.connect("arduino-client")) {  // Tentative de connexion au serveur MQTT
+      Serial.println("Connected to MQTT server");  // Affichage d'un message de connexion réussie
     } else {
-      Serial.print("Failed to connect to MQTT server, rc=");
+      Serial.print("Failed to connect to MQTT server, rc=");  // Affichage d'un message d'erreur si la connexion au serveur MQTT a échoué
       Serial.println(mqttClient.state());
       delay(5000);
     }
   }
 }
 
-void loop() {
+void loop() { // Fonction qui s'exécute en boucle sur une carte Arduino et contient le code principal qui doit être exécuté en continu.
   // Publish a message
-  mqttClient.publish("srt/KR" , "Test_n1");
+  mqttClient.publish("srt/KR" , "Test_n1");  // Envoi d'un message à la topic "srt/KR"
 
   // Wait for a while
-  delay(5000);
+  delay(5000);  // Attente de 5 secondes avant d'envoyer un nouveau message
 }
