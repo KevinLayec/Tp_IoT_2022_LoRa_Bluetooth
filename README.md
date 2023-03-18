@@ -42,8 +42,8 @@ Nous n'avons pas eu le temps de terminer toute cette partie. Les données permet
 Le nom définit pour l'appareil est IoTDevkit-ESP32
 
 Nous avons ainsi pu vérifier le bon fonctionnement de cette partie via l'application Bleutooth Scanner.
-![Vérification_Bluetooth_Scanner1](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/blob/TP_MQTT_LoRa_Bluetooth/Image2.jpg)
-![Vérification_Bluetooth_Scanner2](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/blob/TP_MQTT_LoRa_Bluetooth/Image1.jpg)
+![Vérification_Bluetooth_Scanner1](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/blob/TP_MQTT_LoRa_Bluetooth/Scan_All_Device.png)
+![Vérification_Bluetooth_Scanner2](https://github.com/KevinLayec/Tp_IoT_2022_LoRa_Bluetooth/blob/TP_MQTT_LoRa_Bluetooth/Parametre_device.png)
 On observe bien que la carte émet un signal Bluetooth (UUID et nom de l'appareil identique au code
 
 ###MQTT_client_LoRa_Bluetooth
